@@ -7,11 +7,11 @@ function nothing() end
 
 function M.enable()
   -- Incremental search keymap (you need recent version of textadept)
-  keys.find_incremental['cs'] = gui.find.find_incremental_next
-  keys.find_incremental['\n'] = function() gui.command_entry.finish_mode(nothing) end
+  keys.find_incremental['cs'] = ui.find.find_incremental_next
+  keys.find_incremental['\n'] = function() ui.command_entry.finish_mode(nothing) end
 
   keys.filter_through['\n'] =
-    { gui.command_entry.finish_mode, _M.textadept.filter_through.filter_through }
+    { ui.command_entry.finish_mode, textadept.editing.filter_through }
 
   -- Emacs-like key bindings
   -- do not bind 'cl' (used by other modes), 'ct cl' will redraw
@@ -32,12 +32,12 @@ function M.enable()
   keys['cmh'] = E.move_cut(I.repeatable(buffer.del_word_left)) -- not working
 
   keys['ck'] = E.move_cut(E.line_end)
-  keys['m^'] = _M.textadept.editing.join_lines
+  keys['m^'] = textadept.editing.join_lines
 
   keys['cn'] = I.repeatable(buffer.line_down)
   keys['cp'] = I.repeatable(buffer.line_up)
 
-  keys['cs'] = gui.find.find_incremental
+  keys['cs'] = ui.find.find_incremental
 
   keys['cv'] = buffer.page_down
   keys['mv'] = buffer.page_up
@@ -50,14 +50,14 @@ function M.enable()
   keys['cy'] = buffer.paste
 
   keys['m '] = E.just_one_space
-  keys['m|'] = {gui.command_entry.enter_mode, 'filter_through'}
+  keys['m|'] = {ui.command_entry.enter_mode, 'filter_through'}
 
   keys['c_'] = I.repeatable(buffer.undo)
 
   -- Custom key bindings can go here
   keys['ct'] = {
-    b = _M.textadept.run.run,
-    f = gui.find.focus,
+    b = textadept.run.run,
+    f = ui.find.focus,
     cg = function() I.wrap(buffer.goto_line, I.PROMPT('Goto line:')) end,
     cl = buffer.vertical_centre_caret,
   }
