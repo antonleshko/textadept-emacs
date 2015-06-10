@@ -106,9 +106,13 @@ function I.select_buffer(prompt)
     items[#items + 1] = (buffer.dirty and '*' or '')..basename
     items[#items + 1] = filename
   end
-  local i = gui.filteredlist(_L[prompt], columns, items, true,
-                             NCURSES and {'--width', gui.size[1] - 2} or '--')
-  return i and _BUFFERS[i+1] or nil
+  local _,j = ui.dialogs.filteredlist {informative_text=_L[prompt], columns=columns, items=items, float=true}
+--                             NCURSES and {'--width', gui.size[1] - 2} or '--'}
+  if j==-1 then
+    return nil
+  end
+  return _BUFFERS[j]
+--  return i and _BUFFERS[i+1] or nil
 end
 
 -- Returns an iterator that will iterate over a list starting with

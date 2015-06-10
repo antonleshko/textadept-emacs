@@ -65,13 +65,14 @@ function M.enable()
   -- Emacs ctl-x key map
   keys['cx'] = {
     b = I.switch_buffer,
-    k = I.pick_buffer('Kill Buffer:', buffer.close),
-    r = buffer.reload,
+    k = I.pick_buffer('Kill Buffer:', io.close_buffer),
+    r = io.reload_file,
+    u = buffer.undo,
     cc = quit,
     cf = io.open_file,
     cr = io.open_recent_file,
-    cs = buffer.save,
-    cw = buffer.save_as,
+    cs = io.save_file, 
+    cw = io.save_file_as,
     cx = E.exchange_caret_and_mark,
   }
 
